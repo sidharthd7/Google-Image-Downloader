@@ -11,19 +11,15 @@ const processRequest = (req, res) => {
   const command = `python ${scriptPath} --keyword "${keyword}" --count ${count} --email "${email}"`;
 
   exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error occurred: ${error.message}`);
-      return res.status(500).json({ message: `Error: ${error.message}` });
+    if (error || stderr) {
+      console.error(`Error occurred: ${error?.message || "Faltu error"}`);
+      return res.status(500).json({ message: `Error: ${stderr || error.message}` });
     }
-  
-    if (stderr) {
-      console.error(`Script stderr: ${stderr}`);
-      return res.status(500).json({ message: `Error: ${stderr}` });
-    }
-  
-    const successMessage = "The downloading process has been completed successfully.";
+
+    // Instead of sending back all stdout, send a simpler message
+    const successMessage = "The mashup process has been completed successfully.";
     res.status(200).json({ message: successMessage });
-  });  
+  });
 
 };
 

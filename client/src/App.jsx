@@ -17,9 +17,18 @@ function App(){
       
       const data = await response.json();
       setResult(data.message);
+      // if (response.ok) {
+      //   setResult(data.message);
+      //   // setMessage(data.message); 
+      //   // setError(null);
+      // } else {
+      //   // setError(data.message); 
+      //   // setMessage(null);
+      // }
     } catch (error){
+      // setError("Something went wrong while submitting."); // Handle submission error
+      // setMessage(null); 
       console.error('Error during submission', error);
-      setResult('An error occured.');
     }
   }
 
@@ -33,6 +42,9 @@ function App(){
         <Form onSubmit={handleSubmit}/>
         {result && <Result result={result}/>}
       </div>
+
+      {/* {error && <p className="text-red-500">{error}</p>} 
+      {message && <p className="text-green-500">{message}</p>} */}
 
       <div className="mb-0 "><Footer/></div>
     </div>
